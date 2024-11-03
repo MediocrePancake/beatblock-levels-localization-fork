@@ -1,0 +1,159 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('img/main/Site-background.webp');
+    background-attachment: fixed;
+    color: black;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.search-bar {
+    width: 50%;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    text-align: center;
+}
+
+.header {
+    text-align: center;
+    padding: 2rem;
+}
+
+.header-image {
+    height: 150px;
+}
+
+.download-btn {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.download-btn:hover {
+    background-color: white;
+    color: #ff69b4;
+    border: 1px solid #ff69b4;
+}
+
+.levels-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 2rem 5vw;
+    color: black;
+    border-radius: 10px;
+    position: relative;
+}
+
+.not-found {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: black;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.level-card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.level-card:hover {
+    transform: scale(1.05);
+}
+
+.level-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.level-info {
+    padding: 1rem;
+}
+
+.level-name {
+    font-weight: bold;
+}
+
+.level-artist {
+    color: #666;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: #333;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 400px;
+    color: white;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #ff69b4;
+}
+
+.download-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.download-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.platform-text {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: white;
+}

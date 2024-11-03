@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEATBLOCK</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="nav">
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Buscar niveles..." oninput="filterLevels()">
+        </div>
+    </nav>
+
+    <header class="header">
+        <h1><img src="img/main/header.png" alt="" class="header-image"></h1>
+        <button class="download-btn" onclick="openModal()">Descargar</button>
+    </header>
+
+    <main class="levels-grid" id="levelsGrid">
+        <div class="level-card" data-name="Tetris C Type" onclick="location.href='nivel.html'">
+            <img src="img/levels/portada/C.png" alt="Portada del nivel" class="level-image">
+            <div class="level-info">
+                <div class="level-name">Tetris C Type</div>
+                <div class="level-artist">Random 22</div>
+            </div>
+        </div>
+        <div class="level-card" data-name="Tetris C Type" onclick="location.href='nivel.html'">
+            <img src="img/levels/portada/levanPolka.png" alt="Portada del nivel" class="level-image">
+            <div class="level-info">
+                <div class="level-name">Levan Polka</div>
+                <div class="level-artist">Eino Kettunen</div>
+            </div>
+        </div>
+        <div class="level-card" data-name="Tetris C Type" onclick="location.href='nivel.html'">
+            <img src="img/levels/portada/creator.png" alt="Portada del nivel" class="level-image">
+            <div class="level-info">
+                <div class="level-name">Creator</div>
+                <div class="level-artist">Lena Raine</div>
+            </div>
+        </div>
+        <div class="level-card" data-name="Tetris C Type" onclick="location.href='nivel.html'">
+            <img src="img/levels/portada/DanDaDan.png" alt="Portada del nivel" class="level-image">
+            <div class="level-info">
+                <div class="level-name">Otonoke</div>
+                <div class="level-artist">UALE</div>
+            </div>
+        </div>
+        <div class="level-card" data-name="Tetris C Type" onclick="location.href='nivel.html'">
+            <img src="img/levels/portada/gravityfalls.png" alt="Portada del nivel" class="level-image">
+            <div class="level-info">
+                <div class="level-name">Gravity Falls Theme</div>
+                <div class="level-artist">Brad Breeck</div>
+            </div>
+        </div>
+        <div class="level-card" data-name="Tetris C Type" onclick="location.href='nivel.html'">
+            <img src="img/levels/portada/nyanya.png" alt="Portada del nivel" class="level-image">
+            <div class="level-info">
+                <div class="level-name">nyanyannyanyanyanya...</div>
+                <div class="level-artist">DaniellP</div>
+            </div>
+        </div>
+        <div class="level-card" data-name="Tetris C Type" onclick="location.href='nivel.html'">
+            <img src="img/levels/portada/worldExecuteme.png" alt="Portada del nivel" class="level-image">
+            <div class="level-info">
+                <div class="level-name">world.execute(me);</div>
+                <div class="level-artist">Mili</div>
+            </div>
+        </div>
+        <!-- Agrega más niveles aquí con el formato de level-card -->
+    </main>
+
+    <div id="downloadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Descargar para:</h2>
+            <ul class="download-list">
+                <li>
+                    <div>
+                        <span class="platform-text">Windows</span>
+                    </div>
+                    <a href="downloads/Beatblock-windows.zip" download class="download-btn">Descargar</a>
+                </li>
+                <li>
+                    <div>
+                        <span class="platform-text">Linux</span>
+                    </div>
+                    <a href="downloads/Beatblock-linux.zip" download class="download-btn">Descargar</a>
+                </li>
+                <li>
+                    <div>
+                        <span class="platform-text">Mac</span>
+                    </div>
+                    <a href="downloads/Beatblock-macos.zip" download class="download-btn">Descargar</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
