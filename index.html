@@ -5,16 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BEATBLOCK</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 </head>
 <body>
     <nav class="nav">
         <div class="search-bar">
-            <input type="text" id="searchInput" placeholder="Buscar niveles..." oninput="filterLevels()">
+            <input type="text" id="searchInput" placeholder="Search levels ..." oninput="filterLevels()">
+        </div>
+        <div class="login-container">
+            <button id="loginBtn" class="login-btn" onclick="openAuthModal()">Iniciar sesión</button>
+            <div id="userInfo" class="user-info" style="display: none;">
+                <span id="userName"></span>
+                <button id="logoutBtn" class="logout-btn" onclick="logout()">Cerrar sesión</button>
+            </div>
         </div>
     </nav>
 
     <header class="header">
-        <h1><img src="img/main/header.png" alt="" class="header-image"></h1>
+        <h1><img src="img/main/header.png" alt="BEATBLOCK" class="header-image"></h1>
         <button class="download-btn" onclick="openModal()">Descargar</button>
     </header>
 
@@ -74,27 +87,46 @@
     <div id="downloadModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h2>Descargar para:</h2>
+            <h2>Download for:</h2>
             <ul class="download-list">
                 <li>
                     <div>
-                        <span class="platform-text">Windows</span>
+                        <span class="platform-text">Steam</span>
                     </div>
-                    <a href="downloads/Beatblock-windows.zip" download class="download-btn">Descargar</a>
+                    <a href="https://store.steampowered.com/app/3045200/Beatblock/" download class="download-btn">go</a>
                 </li>
                 <li>
                     <div>
-                        <span class="platform-text">Linux</span>
+                        <span class="platform-text">Itch.io</span>
                     </div>
-                    <a href="downloads/Beatblock-linux.zip" download class="download-btn">Descargar</a>
-                </li>
-                <li>
-                    <div>
-                        <span class="platform-text">Mac</span>
-                    </div>
-                    <a href="downloads/Beatblock-macos.zip" download class="download-btn">Descargar</a>
+                    <a href="https://bubbletabby.itch.io/beatblock" download class="download-btn">go</a>
                 </li>
             </ul>
+        </div>
+    </div>
+
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeAuthModal()">&times;</span>
+            <div id="loginForm">
+                <h2>Iniciar sesión</h2>
+                <form onsubmit="login(event)">
+                    <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
+                    <input type="password" id="loginPassword" placeholder="Contraseña" required>
+                    <button type="submit">Iniciar sesión</button>
+                </form>
+                <p>¿No tienes una cuenta? <a href="#" onclick="showRegisterForm()">Regístrate</a></p>
+            </div>
+            <div id="registerForm" style="display: none;">
+                <h2>Registro</h2>
+                <form onsubmit="register(event)">
+                    <input type="text" id="registerUsername" placeholder="Nombre de usuario" required>
+                    <input type="email" id="registerEmail" placeholder="Correo electrónico" required>
+                    <input type="password" id="registerPassword" placeholder="Contraseña" required>
+                    <button type="submit">Registrarse</button>
+                </form>
+                <p>¿Ya tienes una cuenta? <a href="#" onclick="showLoginForm()">Inicia sesión</a></p>
+            </div>
         </div>
     </div>
 
