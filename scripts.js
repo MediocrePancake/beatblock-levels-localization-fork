@@ -9,6 +9,7 @@ const firebaseConfig = {
     measurementId: "G-M7BJVK2LVS"
 };
 
+
 // Inicializar Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -18,27 +19,45 @@ const db = firebase.firestore();
 const storage = firebase.storage();
 
 // Funciones de autenticación
-function register(event) {
-    event.preventDefault();
-    const username = document.getElementById("registerUsername").value;
-    const email = document.getElementById("registerEmail").value;
-    const password = document.getElementById("registerPassword").value;
+function login(e) {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+            closeAuthModal();
+        })
+        .catch((error) => {
+            alert('Error de inicio de sesión: ' + error.message);
+        });
+}
 
+function register(e) {
+    e.preventDefault();
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const username = document.getElementById('registerUsername').value;
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            // Guardar información adicional del usuario
-            return db.collection("users").doc(userCredential.user.uid).set({
+            return db.collection('users').doc(userCredential.user.uid).set({
                 username: username,
                 email: email
             });
         })
         .then(() => {
-            alert("Registro exitoso. Por favor, inicia sesión.");
-            showLoginForm();
+            closeAuthModal();
         })
         .catch((error) => {
-            alert("Error en el registro: " + error.message);
+            alert('Error de registro: ' + error.message);
         });
+}
+
+function logout() {
+    auth.signOut().then(() => {
+        updateUserInterface(null);
+    }).catch((error) => {
+        console.error('Error al cerrar sesión:', error);
+    });
 }
 
 // Funciones para manejar la interfaz de usuario
@@ -76,6 +95,9 @@ document.getElementById("profilePictureInput").addEventListener("change", functi
     if (file) {
         const user = auth.currentUser;
         const storageRef = storage.ref(`profilePictures/${user.uid}`);
+        
+        showLoadingScreen();
+        
         storageRef.put(file).then(() => {
             return storageRef.getDownloadURL();
         }).then((url) => {
@@ -84,15 +106,17 @@ document.getElementById("profilePictureInput").addEventListener("change", functi
             });
         }).then(() => {
             document.getElementById("userAvatar").src = url;
+            hideLoadingScreen();
         }).catch((error) => {
             console.error("Error uploading profile picture:", error);
+            hideLoadingScreen();
         });
     }
 });
 
 // Funciones para cargar y mostrar niveles
 function loadLevels() {
-    db.collection("levels").get().then((querySnapshot) => {
+    db.collection("levels").orderBy("createdAt", "desc").get().then((querySnapshot) => {
         const levelsGrid = document.getElementById("levelsGrid");
         levelsGrid.innerHTML = ""; // Limpiar niveles existentes
 
@@ -127,6 +151,8 @@ function uploadLevel(event) {
         return;
     }
 
+    showLoadingScreen();
+
     const levelData = {
         title: document.getElementById("levelTitle").value,
         composer: document.getElementById("composer").value,
@@ -159,9 +185,11 @@ function uploadLevel(event) {
         document.getElementById("uploadLevelForm").reset();
         closeUploadPanel();
         loadLevels(); // Recargar los niveles para mostrar el nuevo
+        hideLoadingScreen();
     }).catch((error) => {
         console.error("Error uploading level:", error);
         alert("Error uploading level. Please try again.");
+        hideLoadingScreen();
     });
 }
 
@@ -185,106 +213,16 @@ function closeUploadPanel() {
     document.getElementById("uploadLevelPanel").classList.remove("open");
 }
 
-function login(event) {
-    event.preventDefault();
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
-
-    auth.signInWithEmailAndPassword(email, password)
-        .then(() => {
-            closeAuthModal();
-        })
-        .catch((error) => {
-            alert("Error en el inicio de sesión: " + error.message);
-        });
+// Funciones para manejar la pantalla de carga
+function showLoadingScreen() {
+    document.getElementById("loadingScreen").style.display = "flex";
 }
 
-function logout() {
-    auth.signOut().then(() => {
-        updateUserInterface(null);
-    }).catch((error) => {
-        console.error("Error al cerrar sesión:", error);
-    });
+function hideLoadingScreen() {
+    document.getElementById("loadingScreen").style.display = "none";
 }
 
-// Listener para cambios en el estado de autenticación
-auth.onAuthStateChanged((user) => {
-    if (user) {
-        db.collection("users").doc(user.uid).get().then((doc) => {
-            if (doc.exists) {
-                updateUserInterface({
-                    username: doc.data().username,
-                    email: user.email
-                });
-            }
-        });
-    } else {
-        updateUserInterface(null);
-    }
-});
-
-function updateUserInterface(userData) {
-    const loginBtn = document.getElementById("loginBtn");
-    const userInfo = document.getElementById("userInfo");
-    const userName = document.getElementById("userName");
-
-    if (userData) {
-        loginBtn.style.display = "none";
-        userInfo.style.display = "flex";
-        userName.textContent = userData.username;
-    } else {
-        loginBtn.style.display = "block";
-        userInfo.style.display = "none";
-        userName.textContent = "";
-    }
-}
-
-// Funciones para cargar y mostrar niveles
-function loadLevels() {
-    db.collection("levels").get().then((querySnapshot) => {
-        const levelsGrid = document.getElementById("levelsGrid");
-        levelsGrid.innerHTML = ""; // Limpiar niveles existentes
-
-        querySnapshot.forEach((doc) => {
-            const level = doc.data();
-            const levelCard = createLevelCard(level);
-            levelsGrid.appendChild(levelCard);
-        });
-    });
-}
-
-function createLevelCard(level) {
-    const card = document.createElement("div");
-    card.className = "level-card";
-    card.innerHTML = `
-        <img src="${level.image}" alt="Portada del nivel" class="level-image">
-        <div class="level-info">
-            <div class="level-name">${level.name}</div>
-            <div class="level-artist">${level.artist}</div>
-        </div>
-    `;
-    return card;
-}
-
-// Funciones para manejar los modales
-function openAuthModal() {
-    document.getElementById("authModal").style.display = "block";
-}
-
-function closeAuthModal() {
-    document.getElementById("authModal").style.display = "none";
-}
-
-function showLoginForm() {
-    document.getElementById("loginForm").style.display = "block";
-    document.getElementById("registerForm").style.display = "none";
-}
-
-function showRegisterForm() {
-    document.getElementById("loginForm").style.display = "none";
-    document.getElementById("registerForm").style.display = "block";
-}
-
+// Funciones para manejar modales
 function openModal() {
     document.getElementById("downloadModal").style.display = "block";
 }
@@ -293,43 +231,33 @@ function closeModal() {
     document.getElementById("downloadModal").style.display = "none";
 }
 
+function openAuthModal() {
+    document.getElementById("authModal").style.display = "block";
+}
+
+function closeAuthModal() {
+    document.getElementById("authModal").style.display = "none";
+}
+
+// Función para filtrar niveles
 function filterLevels() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase().trim();
-    const levelsGrid = document.getElementById('levelsGrid');
-    const levels = levelsGrid.getElementsByClassName('level-card');
-    let found = false;
+    const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+    const levelCards = document.querySelectorAll(".level-card");
 
-    for (let level of levels) {
-        const levelName = level.querySelector('.level-name').textContent.toLowerCase();
-
-        if (levelName.includes(searchInput)) {
-            level.style.display = 'block';
-            found = true;
+    levelCards.forEach(card => {
+        const levelName = card.querySelector(".level-name").textContent.toLowerCase();
+        const levelArtist = card.querySelector(".level-artist").textContent.toLowerCase();
+        if (levelName.includes(searchTerm) || levelArtist.includes(searchTerm)) {
+            card.style.display = "block";
         } else {
-            level.style.display = 'none';
+            card.style.display = "none";
         }
-    }
-
-    if (!found) {
-        if (!document.getElementById('notFoundMessage')) {
-            const notFoundMessage = document.createElement('div');
-            notFoundMessage.id = 'notFoundMessage';
-            notFoundMessage.className = 'not-found';
-            notFoundMessage.innerHTML = '<h2>404<br>Busco busco pero no hay nada :/</h2>';
-            levelsGrid.appendChild(notFoundMessage);
-        }
-    } else {
-        const notFoundMessage = document.getElementById('notFoundMessage');
-        if (notFoundMessage) {
-            notFoundMessage.remove();
-        }
-    }
+    });
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
     loadLevels();
-    document.getElementById("loginBtn").addEventListener('click', openAuthModal);
     document.getElementById("loginForm").addEventListener('submit', login);
     document.getElementById("registerForm").addEventListener('submit', register);
     document.getElementById("uploadLevelBtn").addEventListener('click', openUploadPanel);
