@@ -1,15 +1,7 @@
-// Dictionaries of text used
-let localizedText = {};
-const spanishText = {
-    download:"Descargar"
-};
-const englishText = {
-    download: "Download"
-};
+function SetEnglish() {
+    document.getElementById("download-btn").textContent = "Download"; //download button
+}
 
-localizedText = englishText; //Test
-
-function SetLanguage(language) {
-    if (language == "spanish") localizedText = spanishText;
-    else if (language == "english") localizedText = englishText;
+function SetSpanish() {
+    document.getElementById("download-btn").textContent = "Descargar"; //download button
 }
