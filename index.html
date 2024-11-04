@@ -6,20 +6,21 @@
     <title>BEATBLOCK</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
-    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
 </head>
 <body>
     <nav class="nav">
+        <button id="uploadLevelBtn" class="upload-btn">Upload Level</button>
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search levels ..." oninput="filterLevels()">
         </div>
         <div class="login-container">
             <button id="loginBtn" class="login-btn" onclick="openAuthModal()">Iniciar sesión</button>
             <div id="userInfo" class="user-info" style="display: none;">
+                <img id="userAvatar" src="img/default-avatar.png" alt="User Avatar" class="user-avatar" onclick="changeProfilePicture()">
                 <span id="userName"></span>
                 <button id="logoutBtn" class="logout-btn" onclick="logout()">Cerrar sesión</button>
             </div>
@@ -129,6 +130,24 @@
             </div>
         </div>
     </div>
+    
+    <div id="uploadLevelPanel" class="upload-panel">
+        <h2>Upload Level</h2>
+        <form id="uploadLevelForm">
+            <input type="file" id="coverImage" accept="image/*" required>
+            <input type="text" id="levelTitle" placeholder="Title of level" required>
+            <input type="text" id="composer" placeholder="Composer" required>
+            <input type="text" id="charter" placeholder="Charter" required>
+            <input type="text" id="programmer" placeholder="Programmer" required>
+            <textarea id="description" placeholder="Description" required></textarea>
+            <input type="text" id="descriptionCreatedBy" placeholder="Description created by" required>
+            <input type="file" id="sampleAudio" accept="audio/*" required>
+            <input type="file" id="levelZip" accept=".zip" required>
+            <button type="submit">Upload Level</button>
+        </form>
+    </div>
+
+    <input type="file" id="profilePictureInput" accept="image/*" style="display: none;">
 
     <script src="scripts.js"></script>
 </body>

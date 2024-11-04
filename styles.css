@@ -233,3 +233,108 @@ body {
 .login-option-btn:hover {
     opacity: 0.9;
 }
+
+/* Estilos existentes ... */
+
+.upload-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-btn:hover {
+    background-color: #45a049;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.upload-panel {
+    position: fixed;
+    left: -300px;
+    top: 0;
+    width: 300px;
+    height: 100%;
+    background-color: white;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    transition: left 0.3s ease-in-out;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.upload-panel.open {
+    left: 0;
+}
+
+.upload-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.upload-panel input,
+.upload-panel textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.upload-panel button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-panel button:hover {
+    background-color: #45a049;
+}
+
+/* Estilos para la página de descarga de nivel */
+.download-page {
+    display: flex;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3em;
+    background-color: rgba(255, 255, 255, 0.711);
+    box-shadow: 8px 8px 8px 8px rgba(0, 0, 0, 0.2);
+}
+
+.left-column {
+    width: 40%;
+    padding-right: 2rem;
+}
+
+.right-column {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.level-cover {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.demo-video {
+    width: 100%;
+    margin-top: 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Otros estilos existentes ... */
