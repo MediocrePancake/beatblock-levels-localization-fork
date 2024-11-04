@@ -1,10 +1,10 @@
 // Dictionaries of text used
 let localizedText = {};
 const spanishText = {
-    descargar:"Descargar"
+    download:"Descargar"
 };
 const englishText = {
-    descargar: "Download"
+    download: "Download"
 };
 
 localizedText = englishText; //Test
