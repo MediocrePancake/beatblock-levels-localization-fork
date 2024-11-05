@@ -262,7 +262,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("registerForm").addEventListener('submit', register);
     document.getElementById("uploadLevelBtn").addEventListener('click', openUploadPanel);
     document.getElementById("uploadLevelForm").addEventListener('submit', uploadLevel);
-    document.getElementById("languageBtn").addEventListener('click', toggleLanguage);
 });
 
 // Listener para cambios en el estado de autenticación

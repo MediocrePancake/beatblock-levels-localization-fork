@@ -54,6 +54,22 @@ body {
     border: 1px solid #ff69b4;
 }
 
+.lang-btn {
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+    background-color: white;
+    color: #ff69b4;
+    border: 1px solid #ff69b4;
+}
+
 .levels-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -353,7 +369,7 @@ body {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.upload-btn, .login-btn, .logout-btn, .download-btn {
+.upload-btn, .login-btn, .logout-btn, .download-btn, .lang-btn {
     background-color: #ff69b4;
     color: white;
     border: none;
@@ -363,7 +379,7 @@ body {
     transition: background-color 0.3s;
 }
 
-.upload-btn:hover, .login-btn:hover, .logout-btn:hover, .download-btn:hover {
+.upload-btn:hover, .login-btn:hover, .logout-btn:hover, .download-btn:hover, .lang-btn:hover {
     background-color: #ff1493;
 }
 
