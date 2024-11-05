@@ -17,7 +17,6 @@
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="Search levels ..." oninput="filterLevels()">
         </div>
-        <button id="languageBtn" class="lang-btn">Change Language</button>
         <div class="login-container">
             <button id="loginBtn" class="login-btn" onclick="openAuthModal()">Iniciar sesión</button>
             <div id="userInfo" class="user-info" style="display: none;">
@@ -31,6 +30,7 @@
     <header class="header">
         <h1><img src="img/main/header.png" alt="BEATBLOCK" class="header-image"></h1>
         <button class="download-btn" onclick="openModal()">Descargar</button>
+        <button class="lang-btn" onclick="toggleLanguage()">Change Language</button>
     </header>
 
     <main class="levels-grid" id="levelsGrid">
