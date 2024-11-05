@@ -122,11 +122,10 @@ function createLevelCard(level, levelId) {
 function uploadLevel(event) {
     event.preventDefault();
     const user = auth.currentUser;
-    /*if (!user) {
+    if (!user) {
         alert("Please log in to upload a level.");
         return;
-    }*/
-    //Dev override
+    }
 
     const levelData = {
         title: document.getElementById("levelTitle").value,
