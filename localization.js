@@ -25,5 +25,6 @@ function toggleLanguage() {
     if (lang == "spanish") lang = "english";
     else lang = "spanish";
 
+    console.log("Language changed to:", lang);
     setLanguage(lang);
 }
